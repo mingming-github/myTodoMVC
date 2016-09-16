@@ -6,6 +6,8 @@
 		<title>Template • TodoMVC</title>
 		<script src="node_modules/angular/angular.js"></script>
 		<script src="node_modules/angular-route/angular-route.js"></script>
+		<script src="js/controllers/Cmain.js"></script>
+		<script src="js/services/Smain.js"></script>
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
 		<!-- CSS overrides - remove if you don't need it -->
 		<link rel="stylesheet" href="css/app.css">
@@ -23,14 +25,14 @@
 				</header>
 				<!-- This section should be hidden by default and shown when there are todos -->
 				<section class="main">
-					<input class="toggle-all" type="checkbox" ng-click="checkedall()">
+					<input class="toggle-all" type="checkbox" ng-click="checkedall()" >
 					<label for="toggle-all">Mark all as complete</label>
 					<ul class="todo-list">
 						<!-- These are here just to show the structure of the list items -->
 						<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
 						<li ng-repeat="todo in todos | filter:selector" ng-class="{completed:todo.completed,editing:todo.id==nowEditingid}" data-id = "{{todo.id}}">
 							<div class="view">
-								<input class="toggle" type="checkbox" ng-model="todo.completed">
+								<input class="toggle" type="checkbox" ng-model="todo.completed" ng-change="toggle()">
 								<label ng-dblclick="changeditingId(todo.id)">{{todo.thing}}</label>
 								<button class="destroy" ng-click="remove(todo.id)"></button>
 							</div>
@@ -41,7 +43,7 @@
 					</ul>
 				</section>
 				<!-- This footer should hidden by default and shown when there are todos -->
-				<footer class="footer">
+				<footer class="footer" ng-show="todos.length">
 					<!-- This should be `0 items left` by default -->
 					<span class="todo-count"><strong>{{todos.length}}</strong> item left</span>
 					<!-- Remove this if you don't implement routing -->
